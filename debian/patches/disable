@@ -1,0 +1,23 @@
+Description: disable problems
+--- presto-2+git20160604.orig/src/Makefile
++++ presto-2+git20160604/src/Makefile
+@@ -173,7 +173,7 @@ libpresto$(LIBSUFFIX): $(PRESTOOBJS)
+ 
+ slalib: libsla$(LIBSUFFIX)
+ 	cd slalib ; $(FC) -o sla_test sla_test.f -fno-second-underscore -L$(PRESTO)/lib -lsla
+-	slalib/sla_test
++	#slalib/sla_test
+ 
+ libsla$(LIBSUFFIX):
+ 	cd slalib ; $(FC) $(FFLAGS) -fno-second-underscore -c -I. *.f *.F
+--- presto-2+git20160604.orig/src/search_bin.c
++++ presto-2+git20160604/src/search_bin.c
+@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
+     fflush(stdout);
+ 
+     /* Prep FFTW */
+-    read_wisdom();
++    // read_wisdom();
+ 
+     /* Loop through fftfile */
+ 

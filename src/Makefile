@@ -173,7 +173,7 @@ libpresto$(LIBSUFFIX): $(PRESTOOBJS)
 
 slalib: libsla$(LIBSUFFIX)
 	cd slalib ; $(FC) -o sla_test sla_test.f -fno-second-underscore -L$(PRESTO)/lib -lsla
-	slalib/sla_test
+	#slalib/sla_test
 
 libsla$(LIBSUFFIX):
 	cd slalib ; $(FC) $(FFLAGS) -fno-second-underscore -c -I. *.f *.F
