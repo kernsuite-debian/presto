@@ -1,0 +1,12 @@
+Source: presto
+Section: science
+Priority: optional
+Maintainer: Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/scottransom/presto/
+
+Package: presto
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: a large suite of pulsar search and analysis software

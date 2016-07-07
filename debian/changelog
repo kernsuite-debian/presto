@@ -1,0 +1,5 @@
+presto (2+git20160604-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)
+
+ -- Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>  Thu, 07 Jul 2016 10:42:43 +0000
