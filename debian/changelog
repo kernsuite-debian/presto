@@ -1,4 +1,10 @@
-presto (2+git20160604-1) unstable; urgency=medium
+presto (2+git20160604-1kern1) xenial; urgency=medium
+
+  * add gfortran dependency
+
+ -- Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>  Thu, 07 Jul 2016 14:00:58 +0000
+
+presto (2+git20160604-1) xenial; urgency=medium
 
   * Initial release (Closes: #nnnn)
 
