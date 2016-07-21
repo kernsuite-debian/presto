@@ -9,5 +9,6 @@ Homepage: https://github.com/scottransom/presto/
 
 Package: presto
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, tempo, python-numpy,
+ python-scipy, python-matplotlib
 Description: a large suite of pulsar search and analysis software
