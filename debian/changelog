@@ -1,3 +1,9 @@
+presto (2+git20160604-1kern3) xenial; urgency=medium
+
+  * add python-numpy build dependency
+
+ -- Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>  Fri, 22 Jul 2016 12:17:17 +0200
+
 presto (2+git20160604-1kern2) xenial; urgency=medium
 
   * add tempo, numpy, scipy & matplotlib dependencies
