@@ -4,7 +4,36 @@ export PRESTO = ${PWD}
 export PGPLOT_DIR = /usr/lib
 
 %:
-	dh $@ --sourcedirectory=src --parallel
+	dh $@ --sourcedirectory=src --parallel --with python2 --buildsystem=pybuild
 
 override_dh_auto_clean:
 	dh_clean
+
+override_dh_auto_build:
+	export
+	cd src && make -j
+	cd python && python setup.py build
+	#cd python/fftfit_src ; f2py -c fftfit.pyf *.f
+
+override_dh_auto_install:
+	cd python && python setup.py install \
+				--force --root=$(CURDIR)/debian/python-presto \
+						--no-compile -O0 --install-layout=deb
+	cp lib/python/*.py $(CURDIR)/debian/python-presto/usr/lib/python2.7/dist-packages/presto/
+	#cp python/fftfit_src/fftfit.so $(CURDIR)/debian/python-presto/usr/lib/python2.7/dist-packages/presto/
+
+
+override_dh_auto_clean:
+	cd python && python setup.py clean
+	cd src && make clean
+	rm -f bin/makedata bin/makeinf bin/mjd2cal bin/quicklook bin/realfft \
+		bin/search_bin bin/swap_endian lib/libpresto.so lib/libsla.so \
+		bin/accelsearch bin/bary bin/bincand bin/cal2mjd bin/check_parkes_raw \
+		bin/dat2sdat bin/dftfold bin/downsample bin/exploredat bin/explorefft \
+		bin/fitsdelcol bin/fitsdelrow bin/patchdata bin/plotbincand \
+		bin/prepdata bin/prepfold bin/prepsubband bin/psrfits_dumparrays \
+		bin/psrorbit bin/readfile bin/rednoise bin/rfifind bin/sdat2dat \
+		bin/shiftdata bin/show_pfd bin/split_parkes_beams bin/taperaw \
+		bin/toas2dat bin/un_sc_td bin/weight_psrfits bin/window bin/zapbirds
+	rm -rf python/build/
+

@@ -6,9 +6,15 @@ Build-Depends: debhelper (>=9), pkg-config, libx11-dev, libpng16-dev,
  libglib2.0-dev, pgplot5, libcfitsio3-dev, libfftw3-dev, gfortran
 Standards-Version: 3.9.6
 Homepage: https://github.com/scottransom/presto/
+X-Python-Version: 2.7
+
 
 Package: presto
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, tempo, python-numpy,
- python-scipy, python-matplotlib
+Depends: ${shlibs:Depends}, ${misc:Depends}, tempo
+Description: a large suite of pulsar search and analysis software
+
+Package: python-presto
+Architecture: any
+Depends: ${python:Depends}, ${misc:Depends}, tempo
 Description: a large suite of pulsar search and analysis software

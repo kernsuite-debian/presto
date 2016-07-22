@@ -1,0 +1,2 @@
+lib/*.so usr/lib/
+bin/* usr/bin/
