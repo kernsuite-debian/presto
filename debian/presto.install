@@ -1,2 +1,3 @@
 lib/*.so usr/lib/
 bin/* usr/bin/
+lib/pulsars.cat usr/share/presto
