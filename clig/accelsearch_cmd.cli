@@ -15,7 +15,7 @@ Int -ncpus   ncpus      {Number of processors to use with OpenMP} \
 Int -lobin   lobin      {The first Fourier frequency in the data file} \
 	-r 0 oo  -d 0
 Int -numharm numharm    {The number of harmonics to sum (power-of-two)}\
-	-r 1 16 -d 8
+	-r 1 32 -d 8
 Int -zmax    zmax       {The max (+ and -) Fourier freq deriv to search} \
 	-r 0 1200  -d 200
 Float -sigma sigma      {Cutoff sigma for choosing candidates}\
