@@ -1,3 +1,10 @@
+presto (2+git20171031-1kern1) xenial; urgency=medium
+
+  * make debian files mit
+  * Imported Upstream version 2+git20171031
+
+ -- KERN packaging <packaging@kernsuite.info>  Tue, 07 Nov 2017 19:10:19 +0200
+
 presto (2+git20160604-1kern6) xenial; urgency=medium
 
   * add missing cat file and dependency
