@@ -25,9 +25,10 @@ static void get_string(FILE * inputfile, int *nbytes, char string[])
     int nchar;
     strcpy(string, "ERROR");
     chkfread(&nchar, sizeof(int), 1, inputfile);
+    *nbytes = sizeof(int);
+    if (feof(inputfile)) exit(0);
     if (nchar > 80 || nchar < 1)
         return;
-    *nbytes = sizeof(int);
     chkfread(string, nchar, 1, inputfile);
     string[nchar] = '\0';
     *nbytes += nchar;
@@ -123,6 +124,14 @@ void get_telescope_name(int telescope_id, struct spectra_info *s)
         strcpy(s->telescope, "VLA");
         s->beam_FWHM = default_beam;
         break;
+    case 64:
+        strcpy(s->telescope, "MeerKAT");
+        s->beam_FWHM = default_beam;
+        break;
+    case 65:
+        strcpy(s->telescope, "KAT-7");
+        s->beam_FWHM = default_beam;
+        break;
     default:
         strcpy(s->telescope, "Unknown");
         s->beam_FWHM = default_beam;
@@ -163,6 +172,12 @@ void get_backend_name(int machine_id, struct spectra_info *s)
         break;
     case 12:
         strcpy(string, "PDEV");
+        break;
+    case 64:
+        strcpy(string, "KAT");
+        break;
+    case 65:
+        strcpy(string, "KAT-DC2");
         break;
     default:
         strcpy(s->backend, "Unknown");

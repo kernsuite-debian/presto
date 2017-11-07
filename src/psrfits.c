@@ -586,7 +586,8 @@ void read_PSRFITS_files(struct spectra_info *s)
 
     // Flip the bytes for Parkes FB_1BIT data
     if (s->bits_per_sample == 1 &&
-        strcmp(s->telescope, "Parkes") == 0 && strcmp(s->backend, "FB_1BIT") == 0) {
+        strcmp(s->telescope, "Parkes") == 0 &&
+        strcmp(s->backend, "FB_1BIT") == 0) {
         printf("Flipping bit ordering since Parkes FB_1BIT data.\n");
         s->flip_bytes = 1;
     } else {

@@ -17,14 +17,6 @@ typedef struct s_Cmdline {
   char outfileP;
   char* outfile;
   int outfileC;
-  /***** -pkmb: Raw data in Parkes Multibeam format */
-  char pkmbP;
-  /***** -gmrt: Raw data in GMRT Phased Array format */
-  char gmrtP;
-  /***** -bcpm: Raw data in Berkeley-Caltech Pulsar Machine (BPP) format */
-  char bcpmP;
-  /***** -spigot: Raw data in Caltech-NRAO Spigot Card format */
-  char spigotP;
   /***** -filterbank: Raw data in SIGPROC filterbank format */
   char filterbankP;
   /***** -psrfits: Raw data in PSRFITS format */
@@ -235,6 +227,10 @@ typedef struct s_Cmdline {
   char maskfileP;
   char* maskfile;
   int maskfileC;
+  /***** -ignorechan: Comma separated string (no spaces!) of channels to ignore (or file containing such string).  Ranges are specified by min:max[:step] */
+  char ignorechanstrP;
+  char* ignorechanstr;
+  int ignorechanstrC;
   /***** -events: Use a event file instead of a time series (.dat) file */
   char eventsP;
   /***** -days: Events are in days since the EPOCH in the '.inf' file (default is seconds) */

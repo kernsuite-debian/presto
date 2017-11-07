@@ -45,8 +45,9 @@ class rfifind:
         self.read_stats()
         self.read_mask()
         self.get_bandpass()
-        self.get_median_bandpass()
-        self.determine_padvals()
+        if len(self.goodints):
+            self.get_median_bandpass()
+            self.determine_padvals()
 
     def read_stats(self):
         x = open(self.basename+".stats")
@@ -75,11 +76,15 @@ class rfifind:
         else:
             self.mask_zap_chans = np.asarray([])
         self.mask_zap_chans = set(self.mask_zap_chans)
+        if len(self.mask_zap_chans)==self.nchan:
+            print "WARNING!:  All channels recommended for masking!"
         nzap = np.fromfile(x, dtype=np.int32, count=1)[0]
         if nzap:
             self.mask_zap_ints = np.fromfile(x, dtype=np.int32, count=nzap)
         else:
             self.mask_zap_ints = np.asarray([])
+        if len(self.mask_zap_ints)==self.nint:
+            print "WARNING!:  All intervals recommended for masking!"
         nzap_per_int = np.fromfile(x, dtype=np.int32, count=nint)
         self.mask_zap_chans_per_int = []
         for nzap in nzap_per_int:
@@ -88,7 +93,6 @@ class rfifind:
             else:
                 tozap = np.asarray([])
             self.mask_zap_chans_per_int.append(tozap)
-        print x.tell()
         x.close()
 
     def get_bandpass(self, plot=False):
@@ -103,6 +107,9 @@ class rfifind:
         goodints = set(ints) - set(badints)
         goodints = np.asarray(list(goodints))
         self.goodints = goodints
+        if not len(goodints):
+            print "WARNING!:  Cannot get bandpass because all intervals zapped."
+            return 0.0
         self.bandpass_avg = self.avg_stats[goodints,:].mean(0)
         self.bandpass_std = self.std_stats[goodints,:].mean(0)
         self.bandpass_pow = self.pow_stats[goodints,:].mean(0)
@@ -217,18 +224,21 @@ class rfifind:
     def plot_zapped_bandpass(self, device="/xwin"):
         not_zapped = set(np.arange(self.nchan)) - set(self.zap_chans)
         not_zapped = np.asarray(list(not_zapped))
-        yhi = (self.median_bandpass_avg+1.5*self.median_bandpass_std).max()
-        ylo = (self.median_bandpass_avg-1.5*self.median_bandpass_std).min()
-        plotxy(self.median_bandpass_avg, self.freqs, rangey=[ylo, yhi],
-               labx="Frequency (MHz)", color='light gray', device=device)
-        plotxy(self.median_bandpass_avg+self.median_bandpass_std,
-               self.freqs, color='blue')
-        plotxy(self.median_bandpass_avg-self.median_bandpass_std,
-               self.freqs, color='blue')
-        plotxy(self.bandpass_avg[not_zapped], self.freqs[not_zapped], color='white')
-        plotxy(self.median_bandpass_avg[self.zap_chans], self.freqs[self.zap_chans],
-               line=None, symbol=16, color='red')
-        closeplot()
+        if len(not_zapped):
+            yhi = (self.median_bandpass_avg+1.5*self.median_bandpass_std).max()
+            ylo = (self.median_bandpass_avg-1.5*self.median_bandpass_std).min()
+            plotxy(self.median_bandpass_avg, self.freqs, rangey=[ylo, yhi],
+                   labx="Frequency (MHz)", color='light gray', device=device)
+            plotxy(self.median_bandpass_avg+self.median_bandpass_std,
+                   self.freqs, color='blue')
+            plotxy(self.median_bandpass_avg-self.median_bandpass_std,
+                   self.freqs, color='blue')
+            plotxy(self.bandpass_avg[not_zapped], self.freqs[not_zapped], color='white')
+            plotxy(self.median_bandpass_avg[self.zap_chans], self.freqs[self.zap_chans],
+                   line=None, symbol=16, color='red')
+            closeplot()
+        else:
+            print "WARNING!:  All channels recommended for masking!"
 
     def write_zap_chans(self, filename=None):
         if filename is None:
@@ -244,13 +254,16 @@ class rfifind:
         # std_norm / std[i], where i is the channel number
         not_zapped = set(np.arange(self.nchan)) - set(self.zap_chans)
         not_zapped = np.asarray(list(not_zapped))
-        std_norm = self.bandpass_std[not_zapped].max()
-        has_var = self.bandpass_std != 0.0
-        # weights for channels without variance will automatically be 0
-        self.weights = np.zeros_like(self.bandpass_std)
-        self.weights[has_var] = std_norm / self.bandpass_std[has_var]
-        self.weights[self.zap_chans] = 0.0
-        self.offsets = self.bandpass_avg
+        if len(not_zapped):
+            std_norm = self.bandpass_std[not_zapped].max()
+            has_var = self.bandpass_std != 0.0
+            # weights for channels without variance will automatically be 0
+            self.weights = np.zeros_like(self.bandpass_std)
+            self.weights[has_var] = std_norm / self.bandpass_std[has_var]
+            self.weights[self.zap_chans] = 0.0
+            self.offsets = self.bandpass_avg
+        else:
+            print "WARNING!:  All channels recommended for masking!"
 
     def write_weights_and_offsets(self, filename=None, invertband=False):
         if filename is None:
@@ -304,7 +317,9 @@ class rfifind:
 if __name__=="__main__":
     import sys
     a = rfifind(sys.argv[1])
-    sys.stderr.write("\nWARNING!:  If raw data have channels in decreasing freq\n")
+    if len(a.goodints)==0:
+        exit(0)
+    sys.stderr.write("WARNING!:  If raw data have channels in decreasing freq\n")
     sys.stderr.write("           order, the channel ordering as given will be\n")
     sys.stderr.write("           inverted!  Use 'invertband=True' in \n")
     sys.stderr.write("           write_weights() in that case!\n")

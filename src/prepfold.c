@@ -9,14 +9,14 @@
 #include <omp.h>
 #endif
 
-#define RAWDATA (cmd->pkmbP || cmd->bcpmP || cmd->wappP \
-                 || cmd->spigotP || cmd->filterbankP || cmd->psrfitsP)
+#define RAWDATA (cmd->filterbankP || cmd->psrfitsP)
 
 extern int getpoly(double mjd, double duration, double *dm, FILE * fp, char *pname);
 extern int phcalc(double mjd0, double mjd1, int last_index,
                   double *phase, double *psrfreq);
 extern int get_psr_from_parfile(char *parfilenm, double epoch, psrparams * psr);
 extern char *make_polycos(char *parfilenm, infodata * idata, char *polycofilenm);
+extern int *ranges_to_ivect(char *str, int minval, int maxval, int *numvals);
 void set_posn(prepfoldinfo * in, infodata * idata);
 
 /*
@@ -162,6 +162,7 @@ int main(int argc, char *argv[])
 
         if (!cmd->outfileP) {
             char *tmprootnm, *suffix;
+            printf("XXX  %s\n", cmd->argv[0]);
             split_root_suffix(cmd->argv[0], &tmprootnm, &suffix);
             if ((cmd->startT != 0.0) || (cmd->endT != 1.0)) {
                 rootnm = (char *) calloc(strlen(tmprootnm) + 11, sizeof(char));
@@ -180,28 +181,12 @@ int main(int argc, char *argv[])
             s.datatype = SIGPROCFB;
         else if (cmd->psrfitsP)
             s.datatype = PSRFITS;
-        else if (cmd->pkmbP)
-            s.datatype = SCAMP;
-        else if (cmd->bcpmP)
-            s.datatype = BPP;
-        else if (cmd->wappP)
-            s.datatype = WAPP;
-        else if (cmd->spigotP)
-            s.datatype = SPIGOT;
     } else {                    // Attempt to auto-identify the data
         identify_psrdatatype(&s, 1);
         if (s.datatype == SIGPROCFB)
             cmd->filterbankP = 1;
         else if (s.datatype == PSRFITS)
             cmd->psrfitsP = 1;
-        else if (s.datatype == SCAMP)
-            cmd->pkmbP = 1;
-        else if (s.datatype == BPP)
-            cmd->bcpmP = 1;
-        else if (s.datatype == WAPP)
-            cmd->wappP = 1;
-        else if (s.datatype == SPIGOT)
-            cmd->spigotP = 1;
         else if (s.datatype == EVENTS)
             cmd->eventsP = pflags.events = 1;
         else if (s.datatype == SDAT)
@@ -235,6 +220,14 @@ int main(int argc, char *argv[])
         printf("\n");
         if (RAWDATA) {
             read_rawdata_files(&s);
+            if (cmd->ignorechanstrP) {
+                s.ignorechans = get_ignorechans(cmd->ignorechanstr, 0, s.num_channels-1,
+                                                &s.num_ignorechans, &s.ignorechans_str);
+                if (s.ignorechans_str==NULL) {
+                    s.ignorechans_str = (char *)malloc(strlen(cmd->ignorechanstr)+1);
+                    strcpy(s.ignorechans_str, cmd->ignorechanstr);
+                }
+            }
             print_spectra_info_summary(&s);
             spectra_info_to_inf(&s, &idata);
             ptsperrec = s.spectra_per_subint;
