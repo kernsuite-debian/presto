@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-export PRESTO = ${PWD}
+export PRESTO = ${CURDIR}
 export PGPLOT_DIR = /usr/lib
 
 %:
@@ -37,3 +37,7 @@ override_dh_auto_clean:
 		bin/toas2dat bin/un_sc_td bin/weight_psrfits bin/window bin/zapbirds
 	rm -rf python/build/
 
+
+override_dh_python2:
+	dh_python2
+	dh_numpy

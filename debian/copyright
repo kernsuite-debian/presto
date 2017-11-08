@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: presto
-Source: <url://example.com>
+Source: https://github.com/scottransom/presto/
 
 Files: *
-Copyright: <years> <put author's name and email here>
+Copyright: 2017 Scott Ransom <sransom@nrao.edu>
 License: GPL-2.0+
 
 Files: debian/*

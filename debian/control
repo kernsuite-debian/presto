@@ -1,21 +1,65 @@
 Source: presto
-Section: science
+Section: python
 Priority: optional
-Maintainer: Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>
-Build-Depends: debhelper (>=9), pkg-config, libx11-dev, libpng12-dev,
- libglib2.0-dev, pgplot5, libcfitsio3-dev, libfftw3-dev, gfortran,
- python-numpy, dh-python, libpython2.7-dev
-Standards-Version: 3.9.6
+Maintainer: KERN packaging <packaging@kernsuite.info>
+Build-Depends:
+ debhelper (>=9),
+ python2.7-dev,
+ pkg-config,
+ libx11-dev,
+ libpng12-dev,
+ libglib2.0-dev,
+ pgplot5,
+ libcfitsio3-dev,
+ libfftw3-dev,
+ gfortran,
+ python-numpy,
+ dh-python,
+ libpython2.7-dev
+Standards-Version: 3.9.7
 Homepage: https://github.com/scottransom/presto/
 X-Python-Version: 2.7
 
 Package: presto
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, tempo, latex2html
-Description: a large suite of pulsar search and analysis software
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ ${python:Depends},
+ tempo,
+ latex2html
+Description: Large suite of pulsar search and analysis software
+ It was primarily designed to efficiently search for binary millisecond pulsars
+ from long observations of globular clusters (although it has since been used
+ in several surveys with short integrations and to process a lot of X-ray data
+ as well). It is written primarily in ANSI C, with many of the recent routines
+ in Python. According to Steve Eikenberry, PRESTO stands for: PulsaR
+ Exploration and Search TOolkit!
+ .
+ To date, PRESTO has discovered over 300 pulsars, including more than 150
+ recycled pulsars, most of which are in binaries!
 
 Package: python-presto
 Architecture: any
-Depends: ${python:Depends}, ${misc:Depends}, tempo, python-numpy,
- python-scipy, python-matplotlib, python-astropy, presto
-Description: a large suite of pulsar search and analysis software
+Depends:
+ ${shlibs:Depends},
+ ${python:Depends},
+ ${misc:Depends},
+ tempo,
+ python-numpy,
+ python-scipy,
+ python-matplotlib,
+ python-astropy,
+ presto
+Description: Large suite of pulsar search and analysis software
+ It was primarily designed to efficiently search for binary millisecond pulsars
+ from long observations of globular clusters (although it has since been used
+ in several surveys with short integrations and to process a lot of X-ray data
+ as well). It is written primarily in ANSI C, with many of the recent routines
+ in Python. According to Steve Eikenberry, PRESTO stands for: PulsaR
+ Exploration and Search TOolkit!
+ .
+ To date, PRESTO has discovered over 300 pulsars, including more than 150
+ recycled pulsars, most of which are in binaries!
+
+
