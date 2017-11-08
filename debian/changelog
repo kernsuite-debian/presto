@@ -1,3 +1,10 @@
+presto (2+git20171031-1kern2) xenial; urgency=medium
+
+  * depend on png12 like other libs
+  * cleanup after making dirty
+
+ -- KERN packaging <packaging@kernsuite.info>  Wed, 08 Nov 2017 11:29:19 +0200
+
 presto (2+git20171031-1kern1) xenial; urgency=medium
 
   * make debian files mit
