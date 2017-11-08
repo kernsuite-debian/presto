@@ -1,3 +1,10 @@
+presto (2+git20171031-1kern3) xenial; urgency=medium
+
+  * fix most lintian errors and warnings
+  * fix build for PPA
+
+ -- KERN packaging <packaging@kernsuite.info>  Wed, 08 Nov 2017 11:49:35 +0200
+
 presto (2+git20171031-1kern2) xenial; urgency=medium
 
   * depend on png12 like other libs
