@@ -26,17 +26,6 @@ override_dh_auto_install:
 override_dh_auto_clean:
 	cd python && python setup.py clean
 	cd src && make clean
-	rm -f bin/makedata bin/makeinf bin/mjd2cal bin/quicklook bin/realfft \
-		bin/search_bin bin/swap_endian lib/libpresto.so lib/libsla.so \
-		bin/accelsearch bin/bary bin/bincand bin/cal2mjd bin/check_parkes_raw \
-		bin/dat2sdat bin/dftfold bin/downsample bin/exploredat bin/explorefft \
-		bin/fitsdelcol bin/fitsdelrow bin/patchdata bin/plotbincand \
-		bin/prepdata bin/prepfold bin/prepsubband bin/psrfits_dumparrays \
-		bin/psrorbit bin/readfile bin/rednoise bin/rfifind bin/sdat2dat \
-		bin/shiftdata bin/show_pfd bin/split_parkes_beams bin/taperaw \
-		bin/toas2dat bin/un_sc_td bin/weight_psrfits bin/window bin/zapbirds
-	rm -rf python/build/
-
 
 override_dh_python2:
 	dh_python2

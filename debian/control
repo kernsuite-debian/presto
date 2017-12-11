@@ -27,7 +27,8 @@ Depends:
  ${misc:Depends},
  ${python:Depends},
  tempo,
- latex2html
+ latex2html,
+ python-presto
 Description: Large suite of pulsar search and analysis software
  It was primarily designed to efficiently search for binary millisecond pulsars
  from long observations of globular clusters (although it has since been used
@@ -49,8 +50,7 @@ Depends:
  python-numpy,
  python-scipy,
  python-matplotlib,
- python-astropy,
- presto
+ python-astropy
 Description: Large suite of pulsar search and analysis software
  It was primarily designed to efficiently search for binary millisecond pulsars
  from long observations of globular clusters (although it has since been used

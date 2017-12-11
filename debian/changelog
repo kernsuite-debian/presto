@@ -1,3 +1,9 @@
+presto (2+git20171031-1kern5) xenial; urgency=medium
+
+  * make presto depend on python-presto
+
+ -- KERN packaging <packaging@kernsuite.info>  Mon, 11 Dec 2017 14:20:53 +0200
+
 presto (2+git20171031-1kern4) xenial; urgency=medium
 
   * use presto python package
