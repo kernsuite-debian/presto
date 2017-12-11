@@ -1,0 +1,319 @@
+Description: Use the presto package
+Author: KERN packaging <packaging@kernsuite.info>
+
+--- presto-2+git20171031.orig/bin/DDplan.py
++++ presto-2+git20171031/bin/DDplan.py
+@@ -1,6 +1,6 @@
+ #!/usr/bin/env python
+ from numpy import *
+-from Pgplot import *
++from presto.Pgplot import *
+ 
+ class observation:
+     def __init__(self, dt, f_ctr, BW, numchan, cDM):
+--- presto-2+git20171031.orig/bin/event_peak.py
++++ presto-2+git20171031/bin/event_peak.py
+@@ -2,7 +2,7 @@
+ import numpy as num
+ import events as evts
+ import sys, kuiper
+-from Pgplot import *
++from presto.Pgplot import *
+ 
+ def calc_phases(events, f, fd):
+     return num.fmod(events*(f+(0.5*fd*events)), 1.0)
+--- presto-2+git20171031.orig/bin/filter_zerolags.py
++++ presto-2+git20171031/bin/filter_zerolags.py
+@@ -18,7 +18,7 @@ zls = N.fromfile(infilenm, 'f')
+ numpts = len(zls)
+ 
+ if (plot):
+-    from Pgplot import *
++    from presto.Pgplot import *
+     plotxy(zls)
+ 
+ T = numpts*dt
+--- presto-2+git20171031.orig/bin/rrattrap.py
++++ presto-2+git20171031/bin/rrattrap.py
+@@ -21,7 +21,7 @@ import glob
+ import os.path
+ import infodata
+ import matplotlib.pyplot as plt
+-from Pgplot import *
++from presto.Pgplot import *
+ import optparse
+ import sys
+ import singlepulse.spio as spio
+--- presto-2+git20171031.orig/bin/single_pulse_search.py
++++ presto-2+git20171031/bin/single_pulse_search.py
+@@ -5,7 +5,7 @@ import numpy as Num
+ from presto import rfft, next2_to_n
+ from psr_utils import coord_to_string
+ from optparse import OptionParser
+-from Pgplot import *
++from presto.Pgplot import *
+ 
+ class candidate:
+     def __init__(self, DM, sigma, time, bin, downfact):
+--- presto-2+git20171031.orig/bin/sum_profiles.py
++++ presto-2+git20171031/bin/sum_profiles.py
+@@ -1,5 +1,6 @@
+ #!/usr/bin/env python
+-import struct, getopt, sys, fftfit, psr_utils, os.path, sinc_interp, Pgplot
++import struct, getopt, sys, fftfit, psr_utils, os.path, sinc_interp
++from presto import Pgplot
+ import numpy as Num
+ from infodata import infodata
+ from prepfold import pfd
+--- presto-2+git20171031.orig/lib/python/binary_psr.py
++++ presto-2+git20171031/lib/python/binary_psr.py
+@@ -236,7 +236,7 @@ class binary_psr:
+ 
+ 
+ if __name__=='__main__':
+-    from Pgplot import *
++    from presto.Pgplot import *
+     
+     psrA = binary_psr("0737A_Lyne_DD.par")
+     times = psr_utils.span(0.0, psrA.par.PB, 1000) + psrA.par.T0
+--- presto-2+git20171031.orig/lib/python/cosine_rand.py
++++ presto-2+git20171031/lib/python/cosine_rand.py
+@@ -40,7 +40,7 @@ def cosine_rand(num):
+ 
+ if __name__ == '__main__':
+     from psr_utils import hist
+-    from Pgplot import plotxy, closeplot
++    from presto.Pgplot import plotxy, closeplot
+     import time
+     
+     if (0):
+--- presto-2+git20171031.orig/lib/python/events.py
++++ presto-2+git20171031/lib/python/events.py
+@@ -416,7 +416,7 @@ def pulsed_fraction_limit(Nphot, Pow):
+ 
+ if __name__=="__main__":
+     from psr_utils import *
+-    from Pgplot import *
++    from presto.Pgplot import *
+     from presto import *
+     from RandomArray import *
+     
+--- presto-2+git20171031.orig/lib/python/kuiper.py
++++ presto-2+git20171031/lib/python/kuiper.py
+@@ -1,5 +1,5 @@
+ import numpy as num
+-import Pgplot
++import presto.Pgplot
+ 
+ def noverk(n,k):
+     # This is the combinations formula
+@@ -111,7 +111,7 @@ if __name__=="__main__":
+             print "Kuiper:"
+             (D, P) = kuiper_uniform_test(data, output=1)
+     if (1):
+-        from Pgplot import *
++        from presto.Pgplot import *
+         p1s = []
+         p2s = []
+         p3s = []
+--- presto-2+git20171031.orig/lib/python/prepfold.py
++++ presto-2+git20171031/lib/python/prepfold.py
+@@ -1,6 +1,7 @@
+ import numpy as Num
+ import copy, random, struct, sys
+-import psr_utils, infodata, polycos, Pgplot
++import psr_utils, infodata, polycos
++from presto import Pgplot
+ from types import StringType, FloatType, IntType
+ from bestprof import bestprof
+ 
+--- presto-2+git20171031.orig/lib/python/psr_utils.py
++++ presto-2+git20171031/lib/python/psr_utils.py
+@@ -1,6 +1,7 @@
+ import numpy as Num
+ import numpy.fft as FFT
+-import Pgplot, ppgplot, bisect, sinc_interp, parfile
++import ppgplot, bisect, sinc_interp, parfile
++from presto import Pgplot
+ from scipy.stats import histogram
+ from scipy.special import ndtr, ndtri, chdtrc, chdtri, fdtr, i0, kolmogorov
+ from scipy.optimize import leastsq
+--- presto-2+git20171031.orig/lib/python/rfifind.py
++++ presto-2+git20171031/lib/python/rfifind.py
+@@ -1,7 +1,7 @@
+ import numpy as np
+ import infodata
+ from scipy.signal import medfilt
+-from Pgplot import *
++from presto.Pgplot import *
+ 
+ """
+ class rfifind:
+--- presto-2+git20171031.orig/lib/python/sinc_interp.py
++++ presto-2+git20171031/lib/python/sinc_interp.py
+@@ -138,7 +138,7 @@ def periodic_interp(data, zoomfact, wind
+ 
+ if __name__=='__main__':
+     from psr_utils import *
+-    from Pgplot import *
++    from presto.Pgplot import *
+     from numpy.random import normal
+     from scipy import interpolate
+     # from spline import *
+--- presto-2+git20171031.orig/lib/python/singlepulse/bary_and_topo.py
++++ presto-2+git20171031/lib/python/singlepulse/bary_and_topo.py
+@@ -8,7 +8,7 @@
+ """
+ from presto.prestoswig import *
+ import numpy as Num
+-import Pgplot
++import presto.Pgplot
+ import psr_utils
+ import glob
+ import psrfits
+--- presto-2+git20171031.orig/python/binopttest/bindata.py
++++ presto-2+git20171031/python/binopttest/bindata.py
+@@ -116,7 +116,7 @@ if __name__ == '__main__':
+     from Numeric import *
+     from stats import *
+     from Statistics import *
+-    from Pgplot import *
++    from presto.Pgplot import *
+     from miscutils import *
+ 
+     def help(funct):
+--- presto-2+git20171031.orig/python/binopttest/montebinopt.py
++++ presto-2+git20171031/python/binopttest/montebinopt.py
+@@ -23,7 +23,7 @@ Dw = 0.5            # degrees (absolute)
+ Dt = 0.00002        # fraction of orbital period
+ 
+ if showplots:
+-    import Pgplot
++    from presto import Pgplot
+ if parallel:
+     import mpi
+     from mpihelp import *
+--- presto-2+git20171031.orig/python/binresponses/monte_ffdot.py
++++ presto-2+git20171031/python/binresponses/monte_ffdot.py
+@@ -33,7 +33,7 @@ maxTbyPb_ffdot = 11.0
+ 
+ # Figure out our environment 
+ if showplots:
+-    import Pgplot
++    from presto import Pgplot
+ if parallel:
+     import mpi
+     from mpihelp import *
+--- presto-2+git20171031.orig/python/binresponses/monte_short.py
++++ presto-2+git20171031/python/binresponses/monte_short.py
+@@ -4,7 +4,7 @@ from Numeric import *
+ from presto import *
+ from miscutils import *
+ from Statistics import *
+-import Pgplot
++from presto import Pgplot
+ 
+ # Some admin variables
+ showplots = 0         # True or false
+--- presto-2+git20171031.orig/python/binresponses/monte_sideb.py
++++ presto-2+git20171031/python/binresponses/monte_sideb.py
+@@ -50,7 +50,7 @@ rng = RNG.CreateGenerator(0, dist)
+ 
+ # Figure out our environment 
+ if showplots:
+-    import Pgplot
++    from presto import Pgplot
+ if parallel:
+     import mpi
+     from mpihelp import *
+--- presto-2+git20171031.orig/python/binresponses/montebinresp.py
++++ presto-2+git20171031/python/binresponses/montebinresp.py
+@@ -35,7 +35,7 @@ fftlen_shortffts = 0.05
+ 
+ # Figure out our environment 
+ if showplots:
+-    import Pgplot
++    from presto import Pgplot
+ if parallel:
+     import mpi
+     from mpihelp import *
+--- presto-2+git20171031.orig/python/dftvectors.py
++++ presto-2+git20171031/python/dftvectors.py
+@@ -1,6 +1,6 @@
+ import umath
+ import Numeric
+-from Pgplot import plotxy, closeplot
++from presto.Pgplot import plotxy, closeplot
+ from copy import copy
+ from time import sleep
+ from Multipack import leastsq
+--- presto-2+git20171031.orig/python/ffdot_example.py
++++ presto-2+git20171031/python/ffdot_example.py
+@@ -1,7 +1,7 @@
+ import numpy as num
+ import newpresto as presto
+ import ppgplot
+-from Pgplot import pgpalette
++from presto.Pgplot import pgpalette
+ 
+ N = 2**14
+ r = N/4.0 # average freq over "observation"
+--- presto-2+git20171031.orig/python/misc/pychecks.py
++++ presto-2+git20171031/python/misc/pychecks.py
+@@ -1,5 +1,5 @@
+ from numpy import *
+-from Pgplot import *
++from presto.Pgplot import *
+ from psr_utils import *
+ from presto import *
+ 
+--- presto-2+git20171031.orig/python/orbit_fit.py
++++ presto-2+git20171031/python/orbit_fit.py
+@@ -3,7 +3,7 @@ from miscutils import *
+ from Scientific.Functions.Interpolation import *
+ from Scientific.Statistics import *
+ from presto import rfft, frotate, drotate, tofloatvector, measure_phase, pfd
+-from Pgplot import *
++from presto.Pgplot import *
+ from Multipack import leastsq
+ from TableIO import readColumns
+ from sys import argv
+--- presto-2+git20171031.orig/python/power_stats.py
++++ presto-2+git20171031/python/power_stats.py
+@@ -2,7 +2,7 @@ from math import sqrt, sin, pi
+ from Numeric import *
+ from RandomArray import random, randint, normal
+ from presto import rfft, TWOPI, spectralpower, maximize_r
+-from Pgplot import plotxy, plotbinned, closeplot
++from presto.Pgplot import plotxy, plotbinned, closeplot
+ from Statistics import average, standardDeviation, histogram
+ 
+ # This code tests the statistics of photon based power
+--- presto-2+git20171031.orig/python/presto_src/__init__.py
++++ presto-2+git20171031/python/presto_src/__init__.py
+@@ -1,6 +1,6 @@
+ from prestoswig import *
+ import numpy as Num
+-import Pgplot
++import presto.Pgplot
+ import psr_utils
+ 
+ def val_with_err(value, error, len=0, digits=2, latex=0):
+--- presto-2+git20171031.orig/python/show_zresp.py
++++ presto-2+git20171031/python/show_zresp.py
+@@ -1,5 +1,5 @@
+ from numpy import *
+-from Pgplot import *
++from presto.Pgplot import *
+ from presto import *
+ 
+ kern_half_width = 10
+--- presto-2+git20171031.orig/python/testcorr.py
++++ presto-2+git20171031/python/testcorr.py
+@@ -1,5 +1,5 @@
+ from numpy import *
+-from Pgplot import *
++from presto.Pgplot import *
+ from presto import *
+ 
+ file = "testz"
