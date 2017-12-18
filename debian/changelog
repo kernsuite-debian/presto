@@ -1,3 +1,10 @@
+presto (2+git20171031-1kern6) xenial; urgency=medium
+
+  * include wisdom
+  * fix paths
+
+ -- KERN packaging <packaging@kernsuite.info>  Mon, 18 Dec 2017 14:52:07 +0200
+
 presto (2+git20171031-1kern5) xenial; urgency=medium
 
   * make presto depend on python-presto
