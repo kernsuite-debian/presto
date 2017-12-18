@@ -6,12 +6,10 @@ export PGPLOT_DIR = /usr/lib
 %:
 	dh $@ --sourcedirectory=src --parallel --with python2 --buildsystem=pybuild
 
-override_dh_auto_clean:
-	dh_clean
-
 override_dh_auto_build:
 	export
 	cd src && make -j
+	cd src && make makewisdom -j
 	cd python && python setup.py build
 	#cd python/fftfit_src ; f2py -c fftfit.pyf *.f
 

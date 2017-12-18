@@ -1,0 +1,49 @@
+Description: Fix path to various files
+
+Author: KERN packaging <packaging@kernsuite.info>
+--- presto-2+git20171031.orig/lib/python/pypsrcat.py
++++ presto-2+git20171031/lib/python/pypsrcat.py
+@@ -305,8 +305,7 @@ pulsars = {}
+ num_binaries = 0
+ 
+ # Read the file that was taken from the ATNF database
+-presto_path = os.getenv("PRESTO")
+-infile = open(os.path.join(presto_path, "lib", "psr_catalog.txt"))
++infile = open("/usr/share/presto/psr_catalog.txt")
+ for line in infile:
+     line, sep, comment = line.partition('#')
+     line = line.strip()
+@@ -319,7 +318,7 @@ for line in infile:
+ infile.close()
+ 
+ # Now add the aliases to the pulsars
+-infile = open(os.path.join(presto_path, "lib", "aliases.txt"))
++infile = open("/usr/share/presto/aliases.txt")
+ for line in infile.readlines()[1:]:
+     if line[0]=='J':
+         vals = line.split()
+@@ -381,8 +380,7 @@ for psr in psrs:
+ 
+ # If calling this as a main program, then write out the new pulsars.cat file
+ if __name__ == '__main__' :
+-    presto_path = os.getenv("PRESTO")
+-    outfilename = os.path.join(presto_path, "lib", "pulsars.cat")
++    outfilename = "/usr/share/presto/pulsars.cat"
+     outfile = open(outfilename, "w")
+     print "Writing %d pulsars (%d binaries) to %s" % \
+           (len(psrs), num_binaries, outfilename)
+--- presto-2+git20171031.orig/src/fftcalls.c
++++ presto-2+git20171031/src/fftcalls.c
+@@ -12,11 +12,10 @@
+ void read_wisdom(void)
+ {
+     FILE *wisdomfile;
+-    static char wisdomfilenm[120];
++    static char wisdomfilenm[]= "/usr/share/presto/fftw_wisdom.txt";
+ 
+     /* First try to import the system wisdom if available */
+     fftwf_import_system_wisdom();
+-    sprintf(wisdomfilenm, "%s/lib/fftw_wisdom.txt", getenv("PRESTO"));
+     wisdomfile = fopen(wisdomfilenm, "r");
+     if (wisdomfile == NULL) {
+         printf("Warning:  Couldn't open '%s'\n"

@@ -1,3 +1,6 @@
 lib/*.so usr/lib/
 bin/* usr/bin/
 lib/pulsars.cat usr/share/presto
+lib/psr_catalog.txt usr/share/presto
+lib/aliases.txt usr/share/presto
+lib/fftw_wisdom.txt usr/share/presto

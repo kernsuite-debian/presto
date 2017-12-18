@@ -44,3 +44,6 @@ python/build/
 src/*.o
 src/slalib/sla_test
 src/slalib/*.o
+src/fftw_wisdom.txt
+lib/fftw_wisdom.txt
+src/makewisdom
