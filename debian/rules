@@ -4,7 +4,7 @@ export PRESTO = ${CURDIR}
 export PGPLOT_DIR = /usr/lib
 
 %:
-	dh $@ --sourcedirectory=src --parallel --with python2 --buildsystem=pybuild
+	dh $@ --sourcedirectory=src --parallel --with python2
 
 override_dh_auto_build:
 	export
