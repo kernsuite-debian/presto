@@ -1,0 +1,4 @@
+# You must remove unused comment lines for the released package.
+version=3
+opts=filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/presto-$1\.tar\.gz/ \
+  https://github.com/scottransom/presto/tags .*/v?(\d\S+)\.tar\.gz
