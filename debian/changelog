@@ -1,3 +1,14 @@
+presto (2.1-1kern1) bionic; urgency=medium
+
+  * add watch file
+  * New upstream version 2.1
+  * update dependencies
+  * ignore debian temp files
+  * disable pybuild, we do manually
+  * disable path patch for now
+
+ -- KERN packaging <packaging@kernsuite.info>  Mon, 19 Mar 2018 12:38:22 +0000
+
 presto (2+git20171031-1kern6) xenial; urgency=medium
 
   * include wisdom
