@@ -3,14 +3,16 @@ Section: python
 Priority: optional
 Maintainer: KERN packaging <packaging@kernsuite.info>
 Build-Depends:
+ dh-python,
+ python-all,
  debhelper (>=9),
  python2.7-dev,
  pkg-config,
  libx11-dev,
- libpng12-dev,
  libglib2.0-dev,
  pgplot5,
- libcfitsio3-dev,
+ libcfitsio-dev,
+ libpng-dev,
  libfftw3-dev,
  gfortran,
  python-numpy,
