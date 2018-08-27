@@ -52,7 +52,8 @@ Depends:
  python-numpy,
  python-scipy,
  python-matplotlib,
- python-astropy
+ python-astropy,
+ presto
 Description: Large suite of pulsar search and analysis software
  It was primarily designed to efficiently search for binary millisecond pulsars
  from long observations of globular clusters (although it has since been used
